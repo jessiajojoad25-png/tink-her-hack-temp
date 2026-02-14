@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Streak{% endblock %}
+{% block body_class %}app-page{% endblock %}
+{% block content %}
+<header class="app-header">
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+    <h1>🔥 Streak</h1>
+</header>
+<main class="streak-main">
+    <div class="streak-hero card">
+        <div class="streak-number">{{ streak }}</div>
+        <p class="streak-label">day streak</p>
+        <p class="streak-hint">Mark your routine done on the Routine page to build your streak!</p>
+    </div>
+    <div class="streak-calendar card">
+        <h3>Completed days</h3>
+        {% if completed_dates %}
+            <ul class="date-list">
+                {% for d in completed_dates[:30] %}
+                    <li>{{ d }}</li>
+                {% endfor %}
+            </ul>
+            {% if completed_dates|length > 30 %}
+                <p class="small">... and {{ completed_dates|length - 30 }} more</p>
+            {% endif %}
+        {% else %}
+            <p class="empty-state">No days recorded yet. Complete your routine to start!</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

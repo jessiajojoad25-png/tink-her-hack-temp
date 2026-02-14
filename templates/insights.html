@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Insights{% endblock %}
+{% block body_class %}app-page{% endblock %}
+{% block content %}
+<header class="app-header">
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+    <h1>📊 Insights</h1>
+</header>
+<main class="insights-main">
+    <div class="insights-grid">
+        <div class="insight-card card">
+            <span class="insight-value">{{ streak }}</span>
+            <p>Current streak (days)</p>
+        </div>
+        <div class="insight-card card">
+            <span class="insight-value">{{ total_days }}</span>
+            <p>Total days completed</p>
+        </div>
+        <div class="insight-card card">
+            <span class="insight-value">{{ this_week }}</span>
+            <p>This week</p>
+        </div>
+        <div class="insight-card card">
+            <span class="insight-value">{{ this_month }}</span>
+            <p>This month</p>
+        </div>
+    </div>
+    <div class="insights-routine card">
+        <h3>Routine</h3>
+        <p>You have <strong>{{ routine_steps_count }}</strong> step{{ 's' if routine_steps_count != 1 else '' }} in your skincare routine.</p>
+    </div>
+    <div class="insights-dates card">
+        <h3>Completion history</h3>
+        {% if completed_dates %}
+            <ul class="date-list">
+                {% for d in completed_dates[-20:]|reverse %}
+                    <li>{{ d }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-state">Complete your routine to see history here.</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

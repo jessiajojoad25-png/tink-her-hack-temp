@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Selfie Check{% endblock %}
+{% block body_class %}app-page{% endblock %}
+{% block content %}
+<header class="app-header">
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+    <h1>📸 Selfie Check</h1>
+</header>
+<main class="selfie-main">
+    <div class="selfie-upload card">
+        <h3>Upload your selfie</h3>
+        <form method="post" action="{{ url_for('selfie') }}" enctype="multipart/form-data">
+            <input type="file" name="photo" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" required>
+            <button type="submit" class="btn btn-primary">Upload & Analyze</button>
+        </form>
+    </div>
+    {% if uploaded_filename %}
+    <div class="selfie-result card">
+        <h3>Your photo</h3>
+        <img src="{{ url_for('uploaded_file', filename=uploaded_filename) }}" alt="Uploaded selfie" class="selfie-preview">
+        <h3 class="mt">Dummy skin analysis</h3>
+        <div class="analysis-dummy">
+            <div class="analysis-item"><span class="label">Hydration</span><span class="value">Good</span></div>
+            <div class="analysis-item"><span class="label">Evenness</span><span class="value">Normal</span></div>
+            <div class="analysis-item"><span class="label">Glow</span><span class="value">Healthy</span></div>
+            <p class="analysis-note">This is placeholder analysis. Real analysis would use AI.</p>
+        </div>
+    </div>
+    {% endif %}
+</main>
+{% endblock %}

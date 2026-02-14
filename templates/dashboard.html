@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block content %}
+<header class="dashboard-header">
+    <div class="header-inner">
+        <h1 class="brand">✨ SkinPilot</h1>
+        <a href="{{ url_for('logout') }}" class="btn btn-ghost">Logout</a>
+    </div>
+</header>
+<main class="dashboard-main">
+    <h2 class="welcome">Hello, {{ username }}! 👋</h2>
+    <p class="welcome-sub">Choose where you'd like to go</p>
+    <div class="dashboard-grid">
+        <a href="{{ url_for('routine') }}" class="dashboard-card card-routine">
+            <span class="card-icon">🧴</span>
+            <h3>Routine</h3>
+            <p>Manage your skincare steps</p>
+        </a>
+        <a href="{{ url_for('selfie') }}" class="dashboard-card card-selfie">
+            <span class="card-icon">📸</span>
+            <h3>Selfie Check</h3>
+            <p>Upload & get dummy analysis</p>
+        </a>
+        <a href="{{ url_for('streak') }}" class="dashboard-card card-streak">
+            <span class="card-icon">🔥</span>
+            <h3>Streak</h3>
+            <p>Track your consistency</p>
+        </a>
+        <a href="{{ url_for('reminders') }}" class="dashboard-card card-reminders">
+            <span class="card-icon">⏰</span>
+            <h3>Reminders</h3>
+            <p>Set skincare reminders</p>
+        </a>
+        <a href="{{ url_for('insights') }}" class="dashboard-card card-insights">
+            <span class="card-icon">📊</span>
+            <h3>Insights</h3>
+            <p>Stats & completion</p>
+        </a>
+    </div>
+</main>
+{% endblock %}

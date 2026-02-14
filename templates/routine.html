@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Routine{% endblock %}
+{% block body_class %}app-page{% endblock %}
+{% block content %}
+<header class="app-header">
+    <a href="{{ url_for('dashboard') }}" class="back-link">← Dashboard</a>
+    <h1>🧴 My Routine</h1>
+</header>
+<main class="routine-main">
+    <div class="routine-add card">
+        <h3>Add a step</h3>
+        <form method="post" action="{{ url_for('routine') }}" class="inline-form">
+            <input type="text" name="step_name" placeholder="e.g. Cleanser, Toner, Moisturizer" required>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+    <div class="routine-list card">
+        <h3>Your steps</h3>
+        {% if steps %}
+            <ul class="step-list">
+                {% for step in steps %}
+                    <li class="step-item">
+                        <span class="step-num">{{ loop.index }}</span>
+                        <span class="step-name">{{ step.step_name }}</span>
+                        <form method="post" action="{{ url_for('delete_routine_step', step_id=step.id) }}" class="step-delete-form" onsubmit="return confirm('Remove this step?');">
+                            <button type="submit" class="btn btn-ghost btn-sm" aria-label="Remove">×</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="mark-done-wrap">
+                <button type="button" class="btn btn-success" id="markRoutineDone">✓ Mark routine done today</button>
+            </div>
+        {% else %}
+            <p class="empty-state">No steps yet. Add your first step above!</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('markRoutineDone')?.addEventListener('click', function() {
+    fetch('{{ url_for("mark_routine_done") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+    }).then(r => r.json()).then(data => {
+        if (data.success) alert(data.message);
+    }).catch(() => alert('Something went wrong.'));
+});
+</script>
+{% endblock %}
