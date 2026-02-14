@@ -21,6 +21,10 @@
 ### The Problem statement
 [What problem are you solving?]
 
+<p align="center">
+  <img src="images/img.png" alt="Project Banner" width="100%">
+</p>
+
 ### The Solution
 [How are you solving it?]
 
